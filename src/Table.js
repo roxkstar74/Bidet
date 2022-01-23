@@ -5,6 +5,8 @@ import { Button, PageButton } from './shared/Button'
 import { classNames } from './shared/Utils'
 import { SortIcon, SortUpIcon, SortDownIcon } from './shared/Icons'
 
+
+
 // Define a default UI for filtering
 function GlobalFilter({
   preGlobalFilteredRows,
@@ -18,7 +20,7 @@ function GlobalFilter({
   }, 200)
 
   return (
-    <label className="flex gap-x-2 items-baseline">
+    <label className="flex gap-x-2 flex-col justify-end items-baseline">
       <span className="text-gray-700">Search: </span>
       <input
         type="text"
@@ -28,7 +30,7 @@ function GlobalFilter({
           setValue(e.target.value);
           onChange(e.target.value);
         }}
-        placeholder={`${count} records...`}
+        placeholder={`${count} kits...`}
       />
     </label>
   )
@@ -51,8 +53,8 @@ export function SelectColumnFilter({
 
   // Render a multi-select box
   return (
-    <label className="flex gap-x-2 items-baseline">
-      <span className="text-gray-700">{render("Header")}: </span>
+    <label className="flex flex-col h-full w-1/2 md:w-auto align-bottom justify-end gap-x-1 items-baseline">
+      <span className="text-gray-700 w-28 ">{render("Header")}: </span>
       <select
         className="rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
         name={id}
@@ -94,15 +96,7 @@ export function StatusPill({ value }) {
 
 export function AvatarCell({ value, column, row }) {
   return (
-    <div className="flex items-center">
-      <div className="flex-shrink-0 h-10 w-10">
-        <img className="h-10 w-10 rounded-full" src={row.original[column.imgAccessor]} alt="" />
-      </div>
-      <div className="ml-4">
-        <div className="text-sm font-medium text-gray-900">{value}</div>
-        <div className="text-sm text-gray-500">{row.original[column.emailAccessor]}</div>
-      </div>
-    </div>
+    <a href={row.original[column.linkAccessor]} className='text-blue-400' alt="" >{value}</a>
   )
 }
 
@@ -142,7 +136,7 @@ function Table({ columns, data }) {
   // Render the UI for your table
   return (
     <>
-      <div className="sm:flex sm:gap-x-2">
+      <div className="flex flex-row flex-wrap align-bottom h-full md:gap-x-6">
         <GlobalFilter
           preGlobalFilteredRows={preGlobalFilteredRows}
           globalFilter={state.globalFilter}
@@ -151,7 +145,7 @@ function Table({ columns, data }) {
         {headerGroups.map((headerGroup) =>
           headerGroup.headers.map((column) =>
             column.Filter ? (
-              <div className="mt-2 sm:mt-0" key={column.id}>
+              <div className="mt-2 w-1/2 md:w-auto md:mt-0" key={column.id}>
                 {column.render("Filter")}
               </div>
             ) : null
@@ -160,7 +154,7 @@ function Table({ columns, data }) {
       </div>
       {/* table */}
       <div className="mt-4 flex flex-col">
-        <div className="-my-2 overflow-x-auto -mx-4 sm:-mx-6 lg:-mx-8">
+        <div className="-my-2 overflow-x-auto h-3/4 -mx-4 sm:-mx-6 lg:-mx-8">
           <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
             <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
               <table {...getTableProps()} className="min-w-full divide-y divide-gray-200">
