@@ -3,7 +3,7 @@ const axios = require('axios');
 export const getData = async() => {
     console.log('getData');
     const backendURL = process.env.BACKEND_URL || 'https://bidet-backend.herokuapp.com/';
-    const response = await axios.get(`${backendURL}/`);
+    const response = await axios.get(`${backendURL}`);
     console.log('response', response);
     let formattedData = response.data.map(row => {
         console.log('row', row);
