@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-const getData = async() => {
+export const getData = async() => {
     console.log('getData');
     const backendURL = process.env.BACKEND_URL || 'http://localhost:5000';
     const response = await axios.get(`${backendURL}/`);
